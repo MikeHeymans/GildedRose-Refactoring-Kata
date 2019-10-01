@@ -3,6 +3,9 @@ package com.gildedrose.model;
 import com.gildedrose.Item;
 
 public class BackstagePass implements Sellable {
+    private static final int DEFAULT_INCREMENT = 1;
+    private static final int DISTANT_FUTURE_THRESHOLD = 10;
+    private static final int NEAR_FUTURE_THRESHOLD = 5;
     public static final String BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
     private final Item item;
 
@@ -15,12 +18,14 @@ public class BackstagePass implements Sellable {
         item.sellIn--;
         if (item.sellIn < 0) {
             item.quality = 0;
-        } else if (item.sellIn < 5) {
-            item.quality = Sellable.validateQuality(item.quality + 3);
-        } else if (item.sellIn < 10) {
-            item.quality = Sellable.validateQuality(item.quality + 2);
         } else {
-            item.quality = Sellable.validateQuality(item.quality + 1);
+            item.quality = Sellable.updateQuality(item.quality, DEFAULT_INCREMENT);
+            if (item.sellIn < DISTANT_FUTURE_THRESHOLD) {
+                item.quality = Sellable.updateQuality(item.quality, DEFAULT_INCREMENT);
+            }
+            if (item.sellIn < NEAR_FUTURE_THRESHOLD) {
+                item.quality = Sellable.updateQuality(item.quality, DEFAULT_INCREMENT);
+            }
         }
     }
 }

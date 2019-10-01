@@ -9,4 +9,9 @@ public class Sulfuras implements Sellable {
     public Sulfuras(Item item) {
         this.item = item;
     }
+
+    @Override
+    public void update() {
+        // do nothing
+    }
 }
