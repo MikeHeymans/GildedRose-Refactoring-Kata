@@ -13,9 +13,13 @@ public class DefaultItem implements Sellable {
     @Override
     public void update() {
         item.sellIn--;
-        item.quality = Sellable.updateQuality(item.quality, DEFAULT_INCREMENT);
-        if (item.sellIn < 0) {
-            item.quality = Sellable.updateQuality(item.quality, DEFAULT_INCREMENT);
+        item.quality = Sellable.updateQuality(item.quality, getIncrement());
+        if (item.sellIn < Sellable.DOUBLE_INCREMENT_SELL_IN_POINT) {
+            item.quality = Sellable.updateQuality(item.quality, getIncrement());
         }
+    }
+
+    protected int getIncrement() {
+        return DEFAULT_INCREMENT;
     }
 }

@@ -2,21 +2,16 @@ package com.gildedrose.model;
 
 import com.gildedrose.Item;
 
-public class AgedBrie implements Sellable {
-    private static final int DEFAULT_INCREMENT = 1;
+public class AgedBrie extends DefaultItem {
+    private static final int AGED_BRIE_INCREMENT = 1;
     public static final String AGED_BRIE = "Aged Brie";
-    private final Item item;
 
     public AgedBrie(Item item) {
-        this.item = item;
+        super(item);
     }
 
     @Override
-    public void update() {
-        item.sellIn--;
-        item.quality = Sellable.updateQuality(item.quality, DEFAULT_INCREMENT);
-        if (item.sellIn < 0) {
-            item.quality = Sellable.updateQuality(item.quality, DEFAULT_INCREMENT);
-        }
+    protected int getIncrement() {
+        return AGED_BRIE_INCREMENT;
     }
 }
